@@ -5,17 +5,15 @@ This script tests the system's ability to process free-form responses without
 requiring question IDs, particularly focusing on the example from the issue description.
 """
 
-import os
 import sys
-import json
 from pathlib import Path
-from unittest.mock import MagicMock, patch
+from unittest.mock import patch
 
 # Add the parent directory to the Python path
 sys.path.append(str(Path(__file__).parent.parent))
 
 from app.pipeline import Pipeline
-from app.translator import Translator
+
 
 def main():
     """Test free-form response processing."""
@@ -55,7 +53,8 @@ def main():
     if result.get('question_id') == expected_question_id:
         print("\n✅ Successfully mapped to the correct question!")
     else:
-        print(f"\n❌ Failed to map to the correct question. Expected {expected_question_id}, got {result.get('question_id')}")
+        print(
+            f"\n❌ Failed to map to the correct question. Expected {expected_question_id}, got {result.get('question_id')}")
 
     if result.get('response') == expected_response:
         print("✅ Successfully extracted the correct rating!")
@@ -71,6 +70,7 @@ def main():
             print(f"  Text (sw): {question['text'].get('sw')}")
 
     return result
+
 
 if __name__ == "__main__":
     main()

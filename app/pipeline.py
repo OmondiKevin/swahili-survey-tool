@@ -6,16 +6,15 @@ of the Swahili Survey Engine, including translation, question mapping, ASR, and
 response parsing.
 """
 
-import os
-import json
-from typing import Dict, List, Any, Optional, Union
 import logging
+import os
+from typing import Dict, List, Optional
 
-from app.translator import Translator
-from app.question_mapper import QuestionMapper
-from app.response_parser import ResponseParser
 from app.asr import ASR
+from app.question_mapper import QuestionMapper
 from app.response_matcher import ResponseMatcher
+from app.response_parser import ResponseParser
+from app.translator import Translator
 
 # Configure logging
 logging.basicConfig(
@@ -23,6 +22,7 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
+
 
 class Pipeline:
     """
@@ -32,7 +32,7 @@ class Pipeline:
     to analyzing responses, with support for both text and audio responses.
     """
 
-    def __init__(self, 
+    def __init__(self,
                  survey_file: Optional[str] = None,
                  translator_api_key: Optional[str] = None,
                  asr_model_size: str = "base"):
@@ -152,15 +152,15 @@ class Pipeline:
 
             # Match the response to a question and structure it
             match_result = self.response_matcher.process_response(
-                translated_response, 
-                self.question_mapper.survey, 
+                translated_response,
+                self.question_mapper.survey,
                 "en"
             )
         else:
             # Match the response to a question and structure it
             match_result = self.response_matcher.process_response(
-                response, 
-                self.question_mapper.survey, 
+                response,
+                self.question_mapper.survey,
                 language
             )
 
@@ -237,7 +237,8 @@ class Pipeline:
 
         return processed_response
 
-    def batch_process_audio_responses(self, audio_files: List[str], question_ids: List[str], language: str = "sw") -> List[Dict]:
+    def batch_process_audio_responses(self, audio_files: List[str], question_ids: List[str], language: str = "sw") -> \
+    List[Dict]:
         """
         Process multiple audio responses to survey questions.
 
@@ -278,7 +279,8 @@ class Pipeline:
 
         return mapped_responses
 
-    def process_directory_of_audio_responses(self, directory: str, naming_pattern: str = r'q(\d+)_.*\.wav', language: str = "sw") -> List[Dict]:
+    def process_directory_of_audio_responses(self, directory: str, naming_pattern: str = r'q(\d+)_.*\.wav',
+                                             language: str = "sw") -> List[Dict]:
         """
         Process all audio files in a directory as survey responses.
 
@@ -368,13 +370,13 @@ class Pipeline:
         # Save the analysis
         self.response_parser.save_summary_report(output_file)
 
-    def run_full_pipeline(self, 
-                         survey_file: str,
-                         audio_directory: Optional[str] = None,
-                         text_responses: Optional[Dict[str, str]] = None,
-                         output_dir: str = 'data/outputs',
-                         language: str = 'sw',
-                         free_form: bool = False) -> Dict:
+    def run_full_pipeline(self,
+                          survey_file: str,
+                          audio_directory: Optional[str] = None,
+                          text_responses: Optional[Dict[str, str]] = None,
+                          output_dir: str = 'data/outputs',
+                          language: str = 'sw',
+                          free_form: bool = False) -> Dict:
         """
         Run the full pipeline from loading the survey to analyzing responses.
 

@@ -5,12 +5,12 @@ Main entry point for the Swahili Survey Engine.
 This script provides a command-line interface to run the survey processing pipeline.
 """
 
+import argparse
+import json
+import logging
 import os
 import sys
-import json
-import argparse
-import logging
-from typing import Dict, List, Optional
+from typing import Dict
 
 from app.pipeline import Pipeline
 
@@ -20,6 +20,7 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
+
 
 def parse_arguments():
     """Parse command-line arguments."""
@@ -56,6 +57,7 @@ def parse_arguments():
 
     return parser.parse_args()
 
+
 def load_text_responses(file_path: str) -> Dict[str, str]:
     """
     Load text responses from a JSON file.
@@ -76,7 +78,8 @@ def load_text_responses(file_path: str) -> Dict[str, str]:
 
         # Validate the format
         if not isinstance(responses, dict):
-            logger.error(f"Invalid format in text responses file. Expected a dictionary mapping question IDs to responses.")
+            logger.error(
+                f"Invalid format in text responses file. Expected a dictionary mapping question IDs to responses.")
             sys.exit(1)
 
         return responses
@@ -87,6 +90,7 @@ def load_text_responses(file_path: str) -> Dict[str, str]:
     except Exception as e:
         logger.error(f"Error loading text responses: {e}")
         sys.exit(1)
+
 
 def main():
     """Main entry point for the application."""
@@ -147,6 +151,7 @@ def main():
     except Exception as e:
         logger.error(f"Error running pipeline: {e}")
         sys.exit(1)
+
 
 if __name__ == '__main__':
     main()
