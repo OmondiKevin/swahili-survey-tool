@@ -1,16 +1,24 @@
-.. Swahili Survey Response Tool documentation master file, created by
-   sphinx-quickstart on Thu Jun  5 20:32:57 2025.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+.. Swahili Survey Engine documentation master file
 
-Welcome to Swahili Survey Response Tool's documentation!
-========================================================
+Welcome to Swahili Survey Engine's documentation!
+================================================
+
+The Swahili Survey Engine is a Python-based application that provides end-to-end functionality for creating,
+translating, and processing surveys in both English and Swahili. It supports multiple question types, text and audio
+responses, and provides advanced analysis of survey results.
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-
+   introduction
+   installation
+   usage
+   survey_format
+   response_processing
+   api_reference
+   troubleshooting
+   contributing
 
 Indices and tables
 ==================
