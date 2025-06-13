@@ -1,6 +1,22 @@
-# Swahili Survey Engine
+# Swahili Survey Tool
 
 A comprehensive engine for processing surveys in both English and Swahili, with support for text and audio responses.
+
+## Table of Contents
+- [Overview](#overview)
+- [Key Features](#key-features)
+- [Components](#components)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Survey Format](#survey-format)
+- [Audio Response Format](#audio-response-format)
+- [Text Response Format](#text-response-format)
+- [Output Format](#output-format)
+- [Project Architecture](#project-architecture)
+- [Troubleshooting](#troubleshooting)
+- [Testing](#testing)
+- [License](#license)
+- [Acknowledgments](#acknowledgments)
 
 ## Overview
 
@@ -193,6 +209,71 @@ The engine produces two main output files:
    - Counts for multiple-choice and yes/no questions
    - Keywords and themes for open-ended questions
    - Overall response statistics
+
+## Project Architecture
+
+The Swahili Survey Engine follows a modular architecture with the following components:
+
+```
+swahili_survey_engine/
+├── app/                      # Core application code
+│   ├── asr.py                # Automatic Speech Recognition interface
+│   ├── whisper_asr.py        # Whisper ASR implementation
+│   ├── translator.py         # Translation service interface
+│   ├── question_mapper.py    # Maps questions between formats
+│   ├── response_matcher.py   # Matches responses to questions
+│   ├── response_parser.py    # Parses and analyzes responses
+│   └── pipeline.py           # Main orchestration component
+├── data/                     # Data directory
+│   ├── survey_questions.json # Example survey questions
+│   └── outputs/              # Output directory for results
+├── docs/                     # Documentation
+├── tests/                    # Unit and integration tests
+└── run_pipeline.py           # Command-line interface
+```
+
+The application follows these processing steps:
+
+1. **Survey Loading**: Load survey questions from a JSON file
+2. **Translation**: Translate questions between English and Swahili as needed
+3. **Response Collection**: Process text and/or audio responses
+4. **Speech Recognition**: Transcribe audio responses to text (if applicable)
+5. **Response Matching**: Match responses to the appropriate questions
+6. **Response Analysis**: Analyze responses to extract insights
+7. **Output Generation**: Generate structured output with results and analysis
+
+## Troubleshooting
+
+### Common Issues
+
+#### Google Cloud Translation API Issues
+
+- **Error**: "API key not valid"
+  - **Solution**: Ensure your Google Cloud API key is correctly set up and has access to the Translation API.
+  - **Fix**: Set the environment variable `GOOGLE_APPLICATION_CREDENTIALS` to the path of your credentials file.
+
+#### Audio Processing Issues
+
+- **Error**: "No audio files found in directory"
+  - **Solution**: Ensure audio files follow the naming convention `q{question_id}_{anything}.wav`.
+  - **Fix**: Rename your audio files to match the pattern or use the `--free-form` flag.
+
+- **Error**: "Failed to transcribe audio"
+  - **Solution**: Ensure the audio file is in a supported format and is not corrupted.
+  - **Fix**: Convert audio to WAV format with a standard sampling rate (16kHz recommended).
+
+#### Memory Issues
+
+- **Error**: "Memory error" when processing large audio files
+  - **Solution**: Use a smaller Whisper model or process files in smaller batches.
+  - **Fix**: Use the `--asr-model tiny` or `--asr-model base` option.
+
+### Getting Help
+
+If you encounter issues not covered here, please:
+1. Check the logs with the `--verbose` flag for more detailed error information
+2. Consult the documentation in the `docs/` directory
+3. Open an issue on the project's GitHub repository
 
 ## Testing
 
