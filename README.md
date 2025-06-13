@@ -55,7 +55,7 @@ The engine consists of several key components:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/swahili_survey_engine.git
+   git clone https://github.com/OmondiKevin/swahili_survey_engine.git
    cd swahili_survey_engine
    ```
 
