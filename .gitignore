@@ -36,6 +36,10 @@ checkpoints/
 .DS_Store
 Thumbs.db
 
+# Mock files
+app/mock_asr.py
+app/mock_translator.py
+
 # Python packaging
 *.egg
 *.egg-info/
